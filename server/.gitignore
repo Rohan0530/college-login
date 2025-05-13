@@ -1,0 +1,39 @@
+# Dependency folders
+node_modules/
+dist/
+build/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*  # like .env.local, .env.production
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Production build
+*.zip
+*.tar.gz
+
+# Coverage files from testing
+coverage/
+
+# IDEs
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Cache files
+.cache/
+.parcel-cache/
