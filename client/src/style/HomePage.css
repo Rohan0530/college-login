@@ -1,0 +1,60 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.main_container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    background-image: linear-gradient(rgb(143, 199, 218),white);
+}
+
+.heading_cont{
+    /* border: 1px solid black; */
+    width: 60%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: -30px;
+}
+
+
+
+.profile_cont{
+    width: 60%;
+    height: 25%;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.avatar{
+    width: 170px;
+    height: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 3px solid rgb(172, 99, 240); */
+    background-color: white;
+    /* border-radius: 50%; */
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.avatar > img{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+
+.avatar:hover{
+   box-shadow: 0 0 15px 15px lightblue;
+}
+

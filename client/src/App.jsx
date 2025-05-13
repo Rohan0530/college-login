@@ -4,6 +4,10 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StudentForm from './components/StudentForm';
+import HomePage from './components/HomePage';
+import TeacherLogin from './components/TeacherLogin';
+import StudentLogin from './components/StudentLogin';
+import StudentSignup from './components/StudentSignup';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,6 +17,10 @@ function App() {
     <Routes>
       {/* <Route path="/login" element={<Login />} /> */}
       <Route path="/student" element={<StudentForm />} />
+      <Route path='/' element={<HomePage/>}/>
+      <Route path='/teacherlogin' element={<TeacherLogin/>}/>
+      <Route path='/studentlogin' element={<StudentLogin/>}/>
+      <Route path='/studentsignup' element={<StudentSignup/>}/>
     </Routes>
   </Router>
   )

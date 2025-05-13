@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 
 
 
-const StudentLogin = () => {
+
+const StudentSignup = () => {
   return (
     <div className='teacher_container'>
     
@@ -14,7 +15,7 @@ const StudentLogin = () => {
           </div>
     
           <div className='login_heading_cont'>
-            <h1>Login</h1>
+            <h1>SignUp</h1>
           </div>
     
           <form action="" className='form_container'>
@@ -25,16 +26,16 @@ const StudentLogin = () => {
             </div>
     
             <div className='button_container'>
-              <button type='submit'>Login</button>
+              <button type='submit'>Signup</button>
             </div>
           </form>
     
           <div>
-            <p>Dont't have an account?  <Link to={'/studentsignup'} style={{textDecoration:"none"}}>SignUP</Link></p>
+            <p>Already have an account?  <Link to={'/studentlogin'} style={{textDecoration:"none"}}>Login</Link></p>
           </div>
           
         </div>
   )
 }
 
-export default StudentLogin
+export default StudentSignup
