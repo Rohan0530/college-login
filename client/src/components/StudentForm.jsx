@@ -29,7 +29,8 @@ const StudentForm = () => {
             city: '',
             state: '',
             country: '',
-            email: ''
+            email: '',
+            file:''
         })
     };
 
@@ -82,7 +83,7 @@ const StudentForm = () => {
 
                     <div className="form-group-mini">
                         <label htmlFor="country">Country</label>
-                        <input type="text" id="country" name="country" value={formData.country} />
+                        <input type="text" id="country" name="country" value={formData.country} onChange={handleChange}/>
                     </div>
                 </div>
                 {/* <div className="form-group">
@@ -97,6 +98,11 @@ const StudentForm = () => {
 
                         <label htmlFor="email">Email Address</label>
                         <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+                    </div>
+                    <div className="form-group-mini">
+
+                        <label htmlFor="file">Email Address</label>
+                        <input type="file" accept='application/pdf' id="file" name="file" value={formData.file} onChange={handleChange} />
                     </div>
                 </div>
                 <div className="btn">
