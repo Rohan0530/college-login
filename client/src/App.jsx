@@ -9,6 +9,7 @@ import TeacherLogin from './components/TeacherLogin';
 import StudentLogin from './components/StudentLogin';
 import StudentSignup from './components/StudentSignup';
 import TeacherAdmin from './components/TeacherAdmin';
+import HomeStudent from './components/HomeStudent';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +24,8 @@ function App() {
       <Route path='/studentlogin' element={<StudentLogin/>}/>
       <Route path='/studentsignup' element={<StudentSignup/>}/>
       <Route path='/teacherAdmin' element={<TeacherAdmin />} />
+      <Route path='studentHome' element={<HomeStudent />} />
+
     </Routes>
   </Router>
   )

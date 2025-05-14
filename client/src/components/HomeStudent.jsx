@@ -1,23 +1,30 @@
 import React from 'react'
 import '../style/TeacherAdmin.css'
-const TeacherAdmin = () => {
+const HomeStudent = () => {
     return (
         <div className='MainPage'>
             <div className='nav'>
-                <h1>Teacher Page</h1>
+                <h1>Student Page</h1>
                 <ul className='itemnav'>
-                    <li>Teacher Name</li>
+                    <li>Student Name</li>
                     <li><button>Logout</button></li>
                 </ul>
             </div>
             <div className='main'>
                 <aside className='asidebar'>
-                   <div className="userdata">
-                    <ul className='listname'>
-                        <li>Student Name</li>
-                        <li><button className='listbtn'>View</button></li>
-                    </ul>   
-                   </div>
+                    <div className="userdetail">
+                        <ul className='sidenav'>
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">My Courses</a></li>
+                            <li><a href="#">Assignments</a></li>
+                            <li><a href="#">Exams</a></li>
+                            <li><a href="#">Grades</a></li>
+                            <li><a href="#">Timetable</a></li>
+                            <li><a href="#">Study Material</a></li>
+                            <li><a href="#">Announcements</a></li>
+                            <li><a href="#">Settings</a></li>
+                        </ul>
+                    </div>
                 </aside>
                 <div className='mainconten'>
                     <h3>All Student Data</h3>
@@ -62,7 +69,7 @@ const TeacherAdmin = () => {
                                 <td>
                                     View
                                 </td>
-                            </tr>   
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -71,4 +78,4 @@ const TeacherAdmin = () => {
     )
 }
 
-export default TeacherAdmin
+export default HomeStudent
