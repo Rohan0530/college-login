@@ -10,7 +10,9 @@ const StudentForm = () => {
         city: '',
         state: '',
         country: '',
-        email: ''
+        email: '',
+        mobile:''
+        
     });
 
     const handleChange = (e) => {
@@ -30,14 +32,17 @@ const StudentForm = () => {
             state: '',
             country: '',
             email: '',
-            file:''
+            file:'',
+            mobile:''
         })
     };
 
 
     return (
-        <div className="student-main">
-            <h1>Student Registration Form</h1>
+        <div className="student_main">
+            <div className='form_heading_cont'>
+                <h1>Student Registration Form</h1>
+            </div>
 
             <form className="student-form" onSubmit={handleSubmit}>
                 <div className="item-left">
@@ -45,17 +50,17 @@ const StudentForm = () => {
                 </div>
                 <div className="form-group">
                     <div className="form-group-mini">
-                        <label htmlFor="fname">First Name</label>
-                        <input type="text" id="fname" name="fname" value={formData.fname} onChange={handleChange} />
+                        {/* <label htmlFor="fname">First Name</label> */}
+                        <input type="text" id="fname" name="fname" value={formData.fname} onChange={handleChange} placeholder='Enter your first name'/>
                     </div>
                     <div className="form-group-mini">
-                        <label htmlFor="middleName">Last Name</label>
-                        <input type="text" id="middleName" name="middleName" value={formData.middleName} onChange={handleChange} />
+                        {/* <label htmlFor="middleName">Last Name</label> */}
+                        <input type="text" id="middleName" name="middleName" value={formData.middleName} onChange={handleChange} placeholder='Enter your last name'/>
                     </div>
                 </div>
                 <div className="form-group">
                     <div className="form-group-mini">
-                        <label htmlFor="dob">Date of Birth</label>
+                        <label htmlFor="dob">Date of Birth:</label>
                         <input type="date" id="dob" name="dob" value={formData.dob} onChange={handleChange} />
                     </div>
                 </div>
@@ -65,25 +70,25 @@ const StudentForm = () => {
 
                 <div className="form-group">
                     <div className="form-group-mini">
-                        <label htmlFor="street">Street Address</label>
-                        <input type="text" id="street" name="street" value={formData.street} onChange={handleChange} />
+                        {/* <label htmlFor="street">Street Address</label> */}
+                        <input type="text" id="street" name="street" value={formData.street} onChange={handleChange} placeholder='Address'/>
                     </div>
 
                     <div className="form-group-mini">
-                        <label htmlFor="city">City</label>
-                        <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} />
+                        {/* <label htmlFor="city">City</label> */}
+                        <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} placeholder='City'/>
                     </div>
                 </div>
 
                 <div className="form-group">
                     <div className="form-group-mini">
-                        <label htmlFor="state">State</label>
-                        <input type="text" id="state" name="state" value={formData.state} onChange={handleChange} />
+                        {/* <label htmlFor="state">State</label> */}
+                        <input type="text" id="state" name="state" value={formData.state} onChange={handleChange} placeholder='State'/>
                     </div>
 
                     <div className="form-group-mini">
-                        <label htmlFor="country">Country</label>
-                        <input type="text" id="country" name="country" value={formData.country} onChange={handleChange}/>
+                        {/* <label htmlFor="country">Country</label> */}
+                        <input type="text" id="country" name="country" value={formData.country} onChange={handleChange} placeholder='Country'/>
                     </div>
                 </div>
                 {/* <div className="form-group">
@@ -96,14 +101,18 @@ const StudentForm = () => {
                 <div className="form-group">
                     <div className="form-group-mini">
 
-                        <label htmlFor="email">Email Address</label>
-                        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+                        {/* <label htmlFor="email">Email Address</label> */}
+                        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder='Enter your email'/>
                     </div>
                     <div className="form-group-mini">
 
-                        <label htmlFor="file">Email Address</label>
-                        <input type="file" accept='application/pdf' id="file" name="file" value={formData.file} onChange={handleChange} />
+                        <input type="number" id='mobile' name='mobile' onChange={handleChange} placeholder='Enter your mobile number'/>
                     </div>
+                </div>
+
+                <div className="form-group-resume">
+                    <label htmlFor="file">Add your resume:</label><br />
+                    <input type="file" accept='application/pdf' id="file" name="file" value={formData.file} onChange={handleChange} />
                 </div>
                 <div className="btn">
                     <button type="submit">Submit</button>

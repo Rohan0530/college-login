@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import student from './Student.jpg'
 import '../style/Login.css'
 import { Link } from 'react-router-dom'
@@ -6,6 +6,23 @@ import { Link } from 'react-router-dom'
 
 
 const StudentLogin = () => {
+
+  let [formData,setFormData] = useState({email:'',password:''})
+    
+      let handleChange=(e)=>{
+    
+        let {value,name} = e.target;
+        setFormData((prev)=>({...prev,[name]:value}))
+      }
+    
+      let handleSubmit=(e)=>{
+    
+        e.preventDefault()
+        console.log(formData)
+    
+        setFormData({email:'',password:''})
+    
+      }
   return (
     <div className='teacher_container'>
     
@@ -17,11 +34,21 @@ const StudentLogin = () => {
             <h1>Login</h1>
           </div>
     
-          <form action="" className='form_container'>
+          <form action="" className='form_container' onSubmit={handleSubmit}>
     
             <div className='input_container'>
-              <input type="text" placeholder='Enter your email'/>
-              <input type="password" placeholder='Enter your password' />
+              <input type="text" 
+              placeholder='Enter your email'
+              name='email'
+              value={formData.email}
+              onChange={handleChange}
+              />
+              <input type="password" 
+              placeholder='Enter your password'
+              name='password'
+              value={formData.password}
+              onChange={handleChange} 
+              />
             </div>
     
             <div className='button_container'>
