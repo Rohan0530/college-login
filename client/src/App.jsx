@@ -25,7 +25,6 @@ function App() {
       <Route path='/studentsignup' element={<StudentSignup/>}/>
       <Route path='/teacherAdmin' element={<TeacherAdmin />} />
       <Route path='studentHome' element={<HomeStudent />} />
-
     </Routes>
   </Router>
   )
