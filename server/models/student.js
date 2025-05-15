@@ -3,7 +3,7 @@ let mongoose = require('mongoose')
 let studentsSchema = new mongoose.Schema({
     name : {
         type : String,
-        required : true
+        required : false
     },
     email : {
         type : String,
@@ -15,11 +15,11 @@ let studentsSchema = new mongoose.Schema({
     },
     contact : {
         type : String,
-        required : true
+        required : false
     },
     resume : {
         type : String,
-        required : true
+        required : false
     },
     uploadDate : {
         type : Date,
