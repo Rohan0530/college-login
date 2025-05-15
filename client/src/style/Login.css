@@ -1,4 +1,4 @@
-*{
+/* *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -16,7 +16,7 @@
 }
 
 .avatar_container{
-    /* border:01px solid black; */
+    border:01px solid black;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -31,11 +31,11 @@
 .form_container{
     width: 24%;
     height: 30%;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center;  */
+    justify-content: center;
+    align-items: center; 
     padding: 30px;
     border-radius: 10px;
     background-color: white;
@@ -55,7 +55,7 @@
     padding: 10px;
     font-size: 17px;
     border-bottom: 0.1px solid rgb(167, 161, 161);
-    /* outline: none;    */
+    outline: none;   
 }
 
 .input_container > input:focus{
@@ -63,7 +63,7 @@
 }
 
 .button_container{
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin-top: 40px;
     
 }
@@ -87,4 +87,129 @@
 
 p{
     font-size: 17px;
+} */
+
+body {
+  margin: 0;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  /* background-color: #e6f2fb; */
+  background-image: linear-gradient(rgb(143, 199, 218),white);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-card {
+  background-color: #fff;
+  padding: 30px 25px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.account-types {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.account-option {
+  border: 2px solid transparent;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease; border-color: #b3d9ff;
+}
+
+.account-option:hover {
+  border-color: #b3d9ff;
+}
+
+.account-option.selected {
+  border-color: #3399ff;
+  background-color: #f0f8ff;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #d9ecff;
+  border-radius: 50%;
+  margin: 0 auto 5px;
+}
+
+.avatar > img{
+    width: 40px;
+    height: 40px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.forgot {
+  text-align: right;
+  font-size: 12px;
+  color: #3399ff;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #3399ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #1a8cff;
+}
+
+.signup-text {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #555;
+}
+
+.signup-link {
+  color: #3399ff;
+  cursor: pointer;
+}
+
+.hidden-section {
+  display: none;
+}
+
+.login-card {
+  min-height: 480px;
+}
+
+Link{
+    text-decoration: none;
 }
