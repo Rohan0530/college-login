@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import '../style/Login.css'
-import Teacher from './Teacher.png'
-import student from './Student.jpg'
-import { Link } from 'react-router-dom'
-
+import '../style/Login.css';
+import Teacher from './Teacher.png';
+import student from './Student.jpg';
+import { Link } from 'react-router-dom';
 
 let Login = () => {
     let [accountType, setAccountType] = useState('staff');
-    let [email, setEmail] = useState('');
-    let [password, setPassword] = useState('');
+    let [formData, setFormData] = useState({ email: '', password: '' });
 
     let handleLogin = () => {
-
-        console.log({ accountType, email, password });
+        console.log({ accountType, ...formData });
+        setFormData({email:'',password:''})
     };
 
     return (
@@ -28,7 +26,9 @@ let Login = () => {
                                 onClick={() => setAccountType(type)}
                                 className={`account-option ${accountType === type ? 'selected' : ''}`}
                             >
-                                <div className="avatar"><img src={imageSrc} alt={type} /></div>
+                                <div className="avatar">
+                                    <img src={imageSrc} alt={type} />
+                                </div>
                                 <span>{type}</span>
                             </div>
                         );
@@ -44,21 +44,23 @@ let Login = () => {
                     type="email"
                     placeholder="Email"
                     className="input-field"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
                 <input
                     type="password"
                     placeholder="Password"
                     className="input-field"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />
                 <div className="forgot">Forgot?</div>
 
                 <button className="login-btn" onClick={handleLogin}>Login</button>
 
-                <p className="signup-text">No account? <Link to={'/registration'} className="signup-link">Signup</Link></p>
+                <p className="signup-text">
+                    No account? <Link to={'/registration'} className="signup-link">Signup</Link>
+                </p>
             </div>
         </div>
     );

@@ -3,11 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StudentForm from './components/StudentForm';
-// import HomePage from './components/HomePage';
 import Login from './components/Login';
-// import StudentLogin from './components/StudentLogin';
-// import StudentSignup from './components/StudentSignup';
 import TeacherAdmin from './components/TeacherAdmin';
 import HomeStudent from './components/HomeStudent';
 import Registration from './components/Registration';

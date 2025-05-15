@@ -160,7 +160,7 @@ h2 {
 }
 
 .input-field {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 12px;
   border-radius: 5px;
@@ -202,9 +202,9 @@ h2 {
   cursor: pointer;
 }
 
-.hidden-section {
+/* .hidden-section {
   display: none;
-}
+} */
 
 .login-card {
   min-height: 480px;

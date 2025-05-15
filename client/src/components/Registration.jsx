@@ -3,12 +3,14 @@ import '../style/Login.css';
 import Teacher from './Teacher.png';
 import Student from './Student.jpg';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+
 
 
 let Registration = () => {
 
     let navigate = useNavigate()
-    let [accountType, setAccountType] = useState('Teacher');
+    let [accountType, setAccountType] = useState('staff');
 
     let [formData, setFormData] = useState({
         name: '',
@@ -40,8 +42,15 @@ let Registration = () => {
         });
     };
 
-    let handleRegister = () => {
+    let handleRegister = async() => {
         let dataToSubmit = { accountType, ...formData };
+        if(accountType === 'staff'){
+            let sendData = await axios.post('http://localhost:4500/api/staff/register',dataToSubmit)
+            console.log(sendData)
+        }else{
+            let sendData = await axios.post('http://localhost:4500/api/students/register',dataToSubmit)
+            console.log(sendData)
+        }
         console.log(dataToSubmit);
         alert(`Registered as ${accountType}`);
         navigate('/')

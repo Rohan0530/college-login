@@ -24,6 +24,11 @@ let studentsSchema = new mongoose.Schema({
     uploadDate : {
         type : Date,
         default : Date.now
+    },
+
+    grade : {
+        type : String,
+        required : false
     }
 })
 
