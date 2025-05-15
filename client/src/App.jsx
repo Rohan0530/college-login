@@ -17,18 +17,18 @@ function App() {
 
   return (
     <Router>
-    <Routes>
-      {/* <Route path="/login" element={<Login />} /> */}
-      {/* <Route path="/student" element={<StudentForm />} /> */}
-      <Route path='/' element={<Login/>}/>
-      {/* <Route path='/teacherlogin' element={<TeacherLogin/>}/> */}
-      <Route path='/registration' element={<Registration/>}/>
-      {/* <Route path='/studentsignup' element={<StudentSignup/>}/> */}
-      <Route path='/teacherAdmin' element={<TeacherAdmin />} />
-      <Route path='/studentHome' element={<HomeStudent />} />
+      <Routes>
+        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/student" element={<StudentForm />} /> */}
+        <Route path='/' element={<Login />} />
+        {/* <Route path='/teacherlogin' element={<TeacherLogin/>}/> */}
+        <Route path='/registration' element={<Registration />} />
+        {/* <Route path='/studentsignup' element={<StudentSignup/>}/> */}
+        <Route path='/teacherAdmin' element={<TeacherAdmin />} />
+        <Route path='/studentHome' element={<HomeStudent />} />
 
-    </Routes>
-  </Router>
+      </Routes>
+    </Router>
   )
 }
 
