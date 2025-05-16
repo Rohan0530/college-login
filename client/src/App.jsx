@@ -5,8 +5,9 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import TeacherAdmin from './components/TeacherAdmin';
-import HomeStudent from './components/HomeStudent';
+import HomeStudent from './components/StudentHome';
 import Registration from './components/Registration';
+import StudentDashboard from './components/StudentDashboard';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
       {/* <Route path='/studentsignup' element={<StudentSignup/>}/> */}
       <Route path='/teacherAdmin' element={<TeacherAdmin />} />
       <Route path='/studentHome' element={<HomeStudent />} />
+      <Route path='/studentdashboard' element={<StudentDashboard/>}/>
 
     </Routes>
   </Router>

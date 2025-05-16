@@ -2,14 +2,26 @@ import React, { useState } from 'react';
 import '../style/Login.css';
 import Teacher from './Teacher.png';
 import student from './Student.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 let Login = () => {
     let [accountType, setAccountType] = useState('staff');
     let [formData, setFormData] = useState({ email: '', password: '' });
+    let navigate = useNavigate()
 
-    let handleLogin = () => {
+    let handleLogin = async() => {
         console.log({ accountType, ...formData });
+        
+        try {
+            if(accountType ==="staff"){
+                navigate('/teacherAdmin')
+            }else{
+                navigate('/studentHome')
+            }
+            
+        } catch (error) {
+            
+        }
         setFormData({email:'',password:''})
     };
 
