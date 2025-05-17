@@ -11,11 +11,11 @@
     },
     name: {
         type : String,
-        required:false
+        required:true
     },
     subject:{
         type:String,
-        required:false
+        required:true
     }
  })
 

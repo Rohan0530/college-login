@@ -1,16 +1,183 @@
+// import React, { useState } from 'react';
+// import '../style/Login.css';
+// import Teacher from './Teacher.png';
+// import Student from './Student.jpg';
+// import { Link, useNavigate } from 'react-router-dom';
+// import axios from 'axios'
+
+
+
+// let Registration = () => {
+
+//     let navigate = useNavigate()
+//     let [accountType, setAccountType] = useState('staff');
+
+//     let [formData, setFormData] = useState({
+//         name: '',
+//         email: '',
+//         password: '',
+//         subject: '',
+//         contactNumber: '',
+//         grade: '',
+//         resume: '',
+//     });
+
+//     let handleChange = (e) => {
+//         let { name, value } = e.target;
+//         setFormData(prev => ({ ...prev, [name]: value }));
+//     };
+
+    
+
+//     let handleAccountTypeChange = (type) => {
+//         setAccountType(type);
+//         setFormData({
+//             name: '',
+//             email: '',
+//             password: '',
+//             subject: '',
+//             contactNumber: '',
+//             grade: '',
+//             resume: '',
+//         });
+//     };
+
+//     let handleRegister = async() => {
+//         let dataToSubmit = { accountType, ...formData };
+//         if(accountType === 'staff'){
+//             let sendData = await axios.post('http://localhost:4500/api/staff/register',dataToSubmit)
+//             console.log(sendData)
+//         }else{
+//             let sendData = await axios.post('http://localhost:4500/api/students/register',dataToSubmit)
+//             console.log(sendData)
+//         }
+//         console.log(dataToSubmit);
+//         alert(`Registered as ${accountType}`);
+//         navigate('/')
+//     };
+
+//     return (
+//         <div className="login-container">
+//             <div className="login-card">
+//                 <h2>Register as</h2>
+//                 <div className="account-types">
+//                     {['staff', 'student'].map((type) => {
+//                         let imageSrc = type === 'staff' ? Teacher : Student;
+//                         return (
+//                             <div
+//                                 key={type}
+//                                 onClick={() => handleAccountTypeChange(type)}
+//                                 className={`account-option ${accountType === type ? 'selected' : ''}`}
+//                             >
+//                                 <div className="avatar"><img src={imageSrc} alt={type} /></div>
+//                                 <span>{type}</span>
+//                             </div>
+//                         );
+//                     })}
+//                 </div>
+
+//                 <p className="welcome-text">
+//                     Hello {accountType.toLowerCase()}!<br />
+//                     Please fill out the form to register.
+//                 </p>
+
+                
+
+
+//                 <input
+//                     type="text"
+//                     name="name"
+//                     placeholder={`${accountType} Name`}
+//                     className="input-field"
+//                     value={formData.name}
+//                     onChange={handleChange}
+//                 />
+//                 <input
+//                     type="email"
+//                     name="email"
+//                     placeholder="Email"
+//                     className="input-field"
+//                     value={formData.email}
+//                     onChange={handleChange}
+//                 />
+//                 <input
+//                     type="password"
+//                     name="password"
+//                     placeholder="Password"
+//                     className="input-field"
+//                     value={formData.password}
+//                     onChange={handleChange}
+//                 />
+
+                
+
+
+//                 <div className={accountType === 'staff' ? '' : 'hidden-section'}>
+//                     <input
+//                         type="text"
+//                         name="subject"
+//                         placeholder="Subject"
+//                         className="input-field"
+//                         value={formData.subject}
+//                         onChange={handleChange}
+//                     />
+//                 </div>
+
+                
+
+
+
+//                 {accountType === 'student' && (
+//                     <div className={accountType === 'student' ? '' : 'hidden-section'}>
+//                         <input
+//                             type="text"
+//                             name="contactNumber"
+//                             placeholder="Contact Number"
+//                             className="input-field"
+//                             value={formData.contactNumber}
+//                             onChange={handleChange}
+//                         />
+//                         <input
+//                             type="text"
+//                             name="grade"
+//                             placeholder="Grade"
+//                             className="input-field"
+//                             value={formData.grade}
+//                             onChange={handleChange}
+//                         />
+//                         <input
+//                             type="file"
+//                             name='resume'
+//                             accept="application/pdf"
+//                             className="input-field"
+//                             onChange={handleChange}
+//                         />
+//                     </div>
+//                 )}
+
+//                 <button className="login-btn" onClick={handleRegister}>
+//                     Register
+//                 </button>
+
+//                 <p className="signup-text">
+//                     Already have an account? <Link to={'/'} className="signup-link">Login</Link>   
+//                 </p>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default Registration;
+
+
 import React, { useState } from 'react';
 import '../style/Login.css';
-import Teacher from './Teacher.png';
-import Student from './Student.jpg';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'
-
-
+import axios from 'axios';
 
 let Registration = () => {
-
-    let navigate = useNavigate()
-    let [accountType, setAccountType] = useState('staff');
+    let navigate = useNavigate();
+    let [accountType, setAccountType] = useState('');
 
     let [formData, setFormData] = useState({
         name: '',
@@ -19,17 +186,20 @@ let Registration = () => {
         subject: '',
         contactNumber: '',
         grade: '',
-        resume: '',
+        resume: null,
     });
 
     let handleChange = (e) => {
-        let { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, files } = e.target;
+        if (name === 'resume') {
+            setFormData(prev => ({ ...prev, resume: files[0] }));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
-    
-
-    let handleAccountTypeChange = (type) => {
+    let handleAccountTypeChange = (e) => {
+        const type = e.target.value;
         setAccountType(type);
         setFormData({
             name: '',
@@ -38,130 +208,148 @@ let Registration = () => {
             subject: '',
             contactNumber: '',
             grade: '',
-            resume: '',
+            resume: null,
         });
     };
 
-    let handleRegister = async() => {
-        let dataToSubmit = { accountType, ...formData };
-        if(accountType === 'staff'){
-            let sendData = await axios.post('http://localhost:4500/api/staff/register',dataToSubmit)
-            console.log(sendData)
-        }else{
-            let sendData = await axios.post('http://localhost:4500/api/students/register',dataToSubmit)
-            console.log(sendData)
+    let handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        if (!accountType) {
+            alert('Please select an account type.');
+            return;
         }
-        console.log(dataToSubmit);
+
+        const dataToSubmit = {
+            accountType,
+            ...formData,
+        };
+
+        if (accountType === 'staff') {
+            const sendData = await axios.post(
+                'http://localhost:4500/api/staff/register',
+                dataToSubmit
+            );
+            console.log(sendData);
+        } else {
+            const sendData = await axios.post(
+                'http://localhost:4500/api/students/register',
+                dataToSubmit
+            );
+            console.log(sendData);
+        }
+
         alert(`Registered as ${accountType}`);
-        navigate('/')
-    };
+        navigate('/');
+    } catch (error) {
+        console.error(error);
+        alert('Registration failed. Please try again.');
+    }
+};
 
     return (
         <div className="login-container">
             <div className="login-card">
-                <h2>Register as</h2>
-                <div className="account-types">
-                    {['staff', 'student'].map((type) => {
-                        let imageSrc = type === 'staff' ? Teacher : Student;
-                        return (
-                            <div
-                                key={type}
-                                onClick={() => handleAccountTypeChange(type)}
-                                className={`account-option ${accountType === type ? 'selected' : ''}`}
-                            >
-                                <div className="avatar"><img src={imageSrc} alt={type} /></div>
-                                <span>{type}</span>
-                            </div>
-                        );
-                    })}
-                </div>
+                <h2>Register</h2>
 
-                <p className="welcome-text">
-                    Hello {accountType.toLowerCase()}!<br />
-                    Please fill out the form to register.
-                </p>
-
-                
-
-
-                <input
-                    type="text"
-                    name="name"
-                    placeholder={`${accountType} Name`}
-                    className="input-field"
-                    value={formData.name}
-                    onChange={handleChange}
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="input-field"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    className="input-field"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-
-                
-
-
-                <div className={accountType === 'staff' ? '' : 'hidden-section'}>
-                    <input
-                        type="text"
-                        name="subject"
-                        placeholder="Subject"
+                <form onSubmit={handleSubmit}>
+                    <select
+                        name="accountType"
+                        value={accountType}
+                        onChange={handleAccountTypeChange}
                         className="input-field"
-                        value={formData.subject}
+                    >
+                        <option value="">-- Select Account Type --</option>
+                        <option value="staff">Staff</option>
+                        <option value="student">Student</option>
+                    </select>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="input-field"
+                        value={formData.email}
                         onChange={handleChange}
+                        required
                     />
-                </div>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        className="input-field"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
 
-                
+                    {/* Show the rest only if accountType is selected */}
+                    {accountType && (
+                        <>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder={`${accountType} Name`}
+                                className="input-field"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                            />
 
+                            {accountType === 'staff' && (
+                                <input
+                                    type="text"
+                                    name="subject"
+                                    placeholder="Subject"
+                                    className="input-field"
+                                    value={formData.subject}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            )}
 
+                            {accountType === 'student' && (
+                                <>
+                                    <input
+                                        type="text"
+                                        name="contactNumber"
+                                        placeholder="Contact Number"
+                                        className="input-field"
+                                        value={formData.contactNumber}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <input
+                                        type="text"
+                                        name="grade"
+                                        placeholder="Grade"
+                                        className="input-field"
+                                        value={formData.grade}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <input
+                                        type="file"
+                                        name="resume"
+                                        accept="application/pdf"
+                                        className="input-field"
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </>
+                            )}
+                        </>
+                    )}
 
-                {accountType === 'student' && (
-                    <div className={accountType === 'student' ? '' : 'hidden-section'}>
-                        <input
-                            type="text"
-                            name="contactNumber"
-                            placeholder="Contact Number"
-                            className="input-field"
-                            value={formData.contactNumber}
-                            onChange={handleChange}
-                        />
-                        <input
-                            type="text"
-                            name="grade"
-                            placeholder="Grade"
-                            className="input-field"
-                            value={formData.grade}
-                            onChange={handleChange}
-                        />
-                        <input
-                            type="file"
-                            name='resume'
-                            accept="application/pdf"
-                            className="input-field"
-                            onChange={handleChange}
-                        />
-                    </div>
-                )}
+                    <button type="submit" className="login-btn">
+                        Register
+                    </button>
 
-                <button className="login-btn" onClick={handleRegister}>
-                    Register
-                </button>
-
-                <p className="signup-text">
-                    Already have an account? <Link to={'/'} className="signup-link">Login</Link>   
-                </p>
+                    <p className="signup-text">
+                        Already have an account? <Link to="/" className="signup-link">Login</Link>
+                    </p>
+                </form>
             </div>
         </div>
     );

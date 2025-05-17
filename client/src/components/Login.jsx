@@ -1,78 +1,53 @@
 import React, { useState } from 'react';
 import '../style/Login.css';
-import Teacher from './Teacher.png';
-import student from './Student.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 
 let Login = () => {
-    let [accountType, setAccountType] = useState('staff');
     let [formData, setFormData] = useState({ email: '', password: '' });
     let navigate = useNavigate()
 
-    let handleLogin = async() => {
-        console.log({ accountType, ...formData });
-        
-        try {
-            if(accountType ==="staff"){
-                navigate('/teacherAdmin')
-            }else{
-                navigate('/studentHome')
-            }
-            
-        } catch (error) {
-            
-        }
-        setFormData({email:'',password:''})
-    };
+    let handleChange = (e)=>{
+        let {name, value} = e.target;
+        setFormData({...formData,[name]:value})
+    }
+
+    let handleSubmit = async(e)=>{
+        e.preventDefault()
+        console.log(formData)
+        setFormData({email: '', password: '' })
+
+    }
+
 
     return (
         <div className="login-container">
             <div className="login-card">
-                <h2>Choose Account Type</h2>
-                <div className="account-types">
-                    {['staff', 'student'].map((type) => {
-                        let imageSrc = type === 'staff' ? Teacher : student;
-                        return (
-                            <div
-                                key={type}
-                                onClick={() => setAccountType(type)}
-                                className={`account-option ${accountType === type ? 'selected' : ''}`}
-                            >
-                                <div className="avatar">
-                                    <img src={imageSrc} alt={type} />
-                                </div>
-                                <span>{type}</span>
-                            </div>
-                        );
-                    })}
-                </div>
-
-                <p className="welcome-text">
-                    Hello {accountType.toLowerCase()}!<br />
-                    Please fill out the form below to get login.
-                </p>
-
-                <input
+                <h2>Login</h2>
+                <form action="" onSubmit={handleSubmit}>
+                    <input
                     type="email"
                     placeholder="Email"
                     className="input-field"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    name='email'
+                    required
+                    onChange={handleChange}
                 />
                 <input
                     type="password"
                     placeholder="Password"
                     className="input-field"
                     value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    name='password'
+                    required
+                    onChange={handleChange}
                 />
                 <div className="forgot">Forgot?</div>
 
-                <button className="login-btn" onClick={handleLogin}>Login</button>
+                <button className="login-btn" >Login</button>
+                </form>
 
-                <p className="signup-text">
-                    No account? <Link to={'/registration'} className="signup-link">Signup</Link>
-                </p>
+                <p className="signup-text">No account? <Link to={'/registration'} className="signup-link">Signup</Link></p>
             </div>
         </div>
     );
