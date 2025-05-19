@@ -1,22 +1,37 @@
-let Staff = require('../models/staff')
+let Student = require('../models/student')
 let bcrypt = require('bcrypt')
 
-let addStaff = async (req, res, next) => {
-    try {
-        let { email, password } = req.body
-        console.log(req.body)
-        let hashPwd = await bcrypt.hash(password, 10)
-        let staff = await Staff.create({ email, password: hashPwd })
-        res.json({ error: false, message: "staff added successfully" })
-    } catch (error) {
-        next(error)
+let signupStaff = async (req, res, next) => {
+  try {
+    const { name, email, password, subject } = req.body;
+
+    const existingUser = await Student.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: true, message: "Email already registered" });
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newStaff = new Student({
+      name,
+      email,
+      password: hashedPassword,
+      role: 'staff',
+      subject
+    });
+
+    await newStaff.save();
+
+    res.status(201).json({ message: "Staff registered successfully" });
+  } catch (error) {
+    next(error);
+  }
 }
 
 let staffLogin = async (req, res, next) => {
     try {
         let { email, password } = req.body
-        let staff = await Staff.findOne({ email })
+        let staff = await Student.findOne({ email,role: 'staff' })
         if (staff) {
             let comparePwd = await bcrypt.compare(password, staff.password)
             if (comparePwd) {
@@ -32,4 +47,4 @@ let staffLogin = async (req, res, next) => {
     }
 }
 
-module.exports = { addStaff, staffLogin }
+module.exports = { signupStaff, staffLogin }

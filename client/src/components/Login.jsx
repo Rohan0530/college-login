@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../style/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 let Login = () => {
     let [formData, setFormData] = useState({ email: '', password: '' });
@@ -14,6 +15,22 @@ let Login = () => {
     let handleSubmit = async(e)=>{
         e.preventDefault()
         console.log(formData)
+         try {
+            const res = await axios.post('http://localhost:4500/api/login', formData);
+
+            const { role } = res.data
+
+            if (role === 'staff') {
+                navigate('/teacherAdmin');
+            } else if (role === 'student') {
+                navigate('/studentdashboard');
+            } else {
+                alert('Unknown role. Access denied.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Invalid credentials or server error.');
+        }
         setFormData({email: '', password: '' })
 
     }

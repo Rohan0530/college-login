@@ -1,12 +1,14 @@
 let express = require('express')
-let { addStaff, staffLogin } = require('../controllers/staffController')
+let { signupStaff, staffLogin } = require('../controllers/staffController')
 let path = require('path')
 let fs = require('fs')
+const upload = require('../multer/uploads')
 
 let router = express.Router()
 
 // for registering admin 
-router.post('/register', addStaff)
+
+router.post('/register',upload.none(), signupStaff)
 
 // for logging
 router.post('/login', staffLogin)

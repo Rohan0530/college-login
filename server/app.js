@@ -5,6 +5,7 @@ let connectDB = require('./db/connectDB')
 require('dotenv').config()
 let studentroutes = require('./routes/studentRoutes')
 let staffroutes = require('./routes/staffRoutes')
+let authRoutes = require('./routes/authRoute')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -12,12 +13,13 @@ app.use(express.urlencoded({extended:true}))
 app.use('/uploads', express.static('uploads'))
 
 app.use(cors({
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
     credentials: true
 }))
 
 app.use('/api/students', studentroutes)
 app.use('/api/staff', staffroutes)
+app.use('/api', authRoutes);
 
 app.use((req, res) => {
     res.status(404).json({ error: true, message: "Page not found" })

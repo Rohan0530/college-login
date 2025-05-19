@@ -3,18 +3,40 @@ let bcrypt = require('bcrypt')
 
 let signupStudent = async (req, res, next) => {
     try {
-        let { email, password } = req.body;
-        console.log(req.body);
+        let { name, email, password, role, subject, contactNumber, grade } = req.body;
+        let resume = req.file?.filename;
 
-        let existingStudent = await Student.findOne({ email });
-        if (existingStudent) {
-            return res.json({ error: true, message: "Email already registered" });
+        let existingUser = await Student.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: true, message: "Email already registered" });
         }
 
-        let hashPwd = await bcrypt.hash(password, 10);
-        let student = await Student.create({ email, password: hashPwd });
+        let hashedPassword = await bcrypt.hash(password, 10);
 
-        res.json({ error: false, message: "Student has signed up", studentId: student._id });
+        let newUser = {
+            name,
+            email,
+            password: hashedPassword,
+            role
+        };
+
+        if (role === 'student') {
+            newUser.contactNumber = contactNumber;
+            newUser.grade = grade;
+            newUser.resume = resume;
+        } else if (role === 'staff') {
+            newUser.subject = subject;
+        } else {
+            return res.status(400).json({ error: true, message: "Invalid role" });
+        }
+
+        let createdUser = await Student.create(newUser);
+
+        res.status(201).json({
+            error: false,
+            message: `${role} registered successfully`,
+            userId: createdUser._id
+        });
     } catch (error) {
         next(error);
     }
@@ -42,30 +64,51 @@ let addstudent = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 
 let studentLogin = async (req, res, next) => {
     try {
-        let { email, password } = req.body;
-        let student = await Student.findOne({ email });
+        let { email, password, role } = req.body
 
-        if (student) {
-            let correctPwd = await bcrypt.compare(password, student.password);
-            if (correctPwd) {
-                res.json({
-                    error: false,
-                    message: "Login successful",
-                    studentId: student._id                              // return _id to frontend
-                });
-            } else {
-                res.json({ error: true, message: "Invalid password" });
-            }
-        } else {
-            res.json({ error: true, message: "Invalid credentials" });
+        if (!email || !password || !role) {
+            return res.status(400).json({ message: "All fields are required" });
         }
-    } catch (error) {
-        next(error);
-    }
-};
 
-module.exports = { signupStudent, addstudent, studentLogin }
+        let userExists = await Student.findOne({ email, role })
+
+        if (!userExists) {
+            return res.json({ error: true, message: "Invalid email or role" })
+        }
+
+        let comparedPwd = await bcrypt.compare(password, userExists.password)
+
+        if (!comparedPwd) {
+            return res.json({ error: true, message: "Invalid password" })
+        }
+        res.status(200).json({
+            message: `${role} login successful`,
+            user: {
+                name: userExists.name,
+                email: userExists.email,
+                role: userExists.role,
+                subject: userExists.role === 'staff' ? userExists.subject : undefined,
+                resume: userExists.role === 'student' ? userExists.resume : undefined
+            },
+        })
+
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error })
+    }
+}
+
+const getAllStudents = async (req, res) => {
+    try {
+        const students = await Student.find({ role: 'student' })
+        res.status(200).json(students);
+    } catch (error) {
+        res.status(500).json({ error: true, message: 'Error fetching students' });
+    }
+}
+
+
+module.exports = { signupStudent, getAllStudents, studentLogin }

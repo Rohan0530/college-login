@@ -27,7 +27,7 @@
 //         setFormData(prev => ({ ...prev, [name]: value }));
 //     };
 
-    
+
 
 //     let handleAccountTypeChange = (type) => {
 //         setAccountType(type);
@@ -81,7 +81,7 @@
 //                     Please fill out the form to register.
 //                 </p>
 
-                
+
 
 
 //                 <input
@@ -109,7 +109,7 @@
 //                     onChange={handleChange}
 //                 />
 
-                
+
 
 
 //                 <div className={accountType === 'staff' ? '' : 'hidden-section'}>
@@ -123,7 +123,7 @@
 //                     />
 //                 </div>
 
-                
+
 
 
 
@@ -213,40 +213,44 @@ let Registration = () => {
     };
 
     let handleSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    try {
-        if (!accountType) {
-            alert('Please select an account type.');
-            return;
-        }
+        try {
+            if (!accountType) {
+                alert('Please select an account type.');
+                return;
+            }
 
-        const dataToSubmit = {
-            accountType,
-            ...formData,
-        };
+            const form = new FormData();
+            form.append('role', accountType);
+            form.append('name', formData.name);
+            form.append('email', formData.email);
+            form.append('password', formData.password);
 
-        if (accountType === 'staff') {
-            const sendData = await axios.post(
-                'http://localhost:4500/api/staff/register',
-                dataToSubmit
-            );
+            if (accountType === 'staff') {
+                form.append('subject', formData.subject);
+            } else {
+                form.append('contactNumber', formData.contactNumber);
+                form.append('grade', formData.grade);
+                form.append('resume', formData.resume);
+            }
+
+            const url =
+                accountType === 'staff'
+                    ? 'http://localhost:4500/api/staff/register'
+                    : 'http://localhost:4500/api/students/register';
+
+            const sendData = await axios.post(url, form);
+
             console.log(sendData);
-        } else {
-            const sendData = await axios.post(
-                'http://localhost:4500/api/students/register',
-                dataToSubmit
-            );
-            console.log(sendData);
+            alert(`Registered as ${accountType}`);
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+            alert('Registration failed. Please try again.');
         }
+    };
 
-        alert(`Registered as ${accountType}`);
-        navigate('/');
-    } catch (error) {
-        console.error(error);
-        alert('Registration failed. Please try again.');
-    }
-};
 
     return (
         <div className="login-container">
@@ -255,7 +259,7 @@ let Registration = () => {
 
                 <form onSubmit={handleSubmit}>
                     <select
-                        name="accountType"
+                        // name="accountType"
                         value={accountType}
                         onChange={handleAccountTypeChange}
                         className="input-field"
