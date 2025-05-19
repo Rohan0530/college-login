@@ -1,15 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../style/StudentDashboard.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
 
 
 const StudentDashboard = () => {
+  let [getData, setGetData] = useState()
+  console.log(getData)
 
   let navigate = useNavigate()
 
   let handleLogout = ()=>{
     navigate('/')
   }
+let {id} = useParams()
+console.log(id)
+
+  let GetSingleData = async(id)=>{
+    try {
+
+      let singleData = await axios.get(`http://localhost:4500/api/students/single/${id}`)
+      console.log(singleData)
+      setGetData(singleData.data.data)
+      
+      
+    } catch (error) {
+      
+    }
+    
+  }
+
+  useEffect(()=>{
+    GetSingleData(id)
+  },[])
   return (
     <div className='student-main_cont'>
       <nav className='navbar-student'>
@@ -27,11 +50,11 @@ const StudentDashboard = () => {
           <h1>Student Details</h1><br />
           <hr />
           <div className='student-details-cont'>
-          <p>Full Name: Sourabh Karale</p>
-          <p>Email: sourabh@gmail.com</p>
+          <p>Full Name:{getData?.name} </p>
+          <p>Email: {getData?.email}</p>
           <p>Mobile No: 9620017198</p>
           <p>Course: MCA</p>
-          <p>Resume:</p>
+          <p>Resume:{getData?.resume}</p>
           </div>
 
           <button >Edit Profile</button>

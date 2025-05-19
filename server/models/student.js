@@ -64,15 +64,22 @@ let studentsSchema = new mongoose.Schema({
         required: true
     },
 
-    contact: {
-        type: String
+    contactNumber: {
+        type: String,
+        // required: true
+
     },
     resume: {
         type: String
     },
 
     subject: {
-        type: String
+        type: String,
+        // required: true
+    },
+    course:{
+        type: String,
+        // required: true
     }
 
 }, {

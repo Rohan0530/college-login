@@ -3,7 +3,7 @@ let bcrypt = require('bcrypt')
 
 let signupStudent = async (req, res, next) => {
     try {
-        let { name, email, password, role, subject, contactNumber, grade } = req.body;
+        let { name, email, password, role, subject, contactNumber, course,  } = req.body;
         let resume = req.file?.filename;
 
         let existingUser = await Student.findOne({ email });
@@ -22,7 +22,7 @@ let signupStudent = async (req, res, next) => {
 
         if (role === 'student') {
             newUser.contactNumber = contactNumber;
-            newUser.grade = grade;
+            newUser.course = course;
             newUser.resume = resume;
         } else if (role === 'staff') {
             newUser.subject = subject;
@@ -110,5 +110,18 @@ const getAllStudents = async (req, res) => {
     }
 }
 
+const getSingleData = async(req,res,next)=>{
+    try {
+        const {id} = req.params
+        let students = await Student.findById(id)
+        if(!students){
+            res.json({error:true,message:"student not feached based on id"})
+        }else{
+            res.json({error:false,message:"Student data featched successfullt",data:students})
+        }
+    } catch (error) {
+        next(error)
+    }
+}
 
-module.exports = { signupStudent, getAllStudents, studentLogin }
+module.exports = { signupStudent, getAllStudents, studentLogin,getSingleData }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../style/Login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { data, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 let Login = () => {
@@ -17,13 +17,14 @@ let Login = () => {
         console.log(formData)
          try {
             const res = await axios.post('http://localhost:4500/api/login', formData);
-
+            console.log(res.data)
             const { role } = res.data
-
+            const {id} = res.data
+            console.log(id)
             if (role === 'staff') {
                 navigate('/teacherAdmin');
             } else if (role === 'student') {
-                navigate('/studentdashboard');
+                navigate(`/studentdashboard/${id}`);
             } else {
                 alert('Unknown role. Access denied.');
             }

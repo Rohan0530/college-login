@@ -4,7 +4,7 @@ const User = require('../models/student')
 const bcrypt = require('bcrypt')
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, _id} = req.body;
 
     try {
         const user = await User.findOne({ email });
@@ -23,6 +23,7 @@ router.post('/login', async (req, res) => {
             success: true,
             role: user.role,
             name: user.name,
+            id:user._id
         });
 
     } catch (error) {

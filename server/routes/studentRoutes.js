@@ -1,4 +1,4 @@
-let { signupStudent, getAllStudents, studentLogin } = require('../controllers/studentController')
+let { signupStudent, getAllStudents, studentLogin,getSingleData } = require('../controllers/studentController')
 let upload = require('../multer/uploads')
 
 let express = require('express')
@@ -17,6 +17,8 @@ router.post('/login', studentLogin)
 
 
 router.get('/all',getAllStudents)
+
+router.get('/single/:id',getSingleData)
 
 // router.post('/add', upload.single('resume'), addstudent)
 
