@@ -18,7 +18,7 @@
 //         password: '',
 //         subject: '',
 //         contactNumber: '',
-//         grade: '',
+//         course: '',
 //         resume: '',
 //     });
 
@@ -37,7 +37,7 @@
 //             password: '',
 //             subject: '',
 //             contactNumber: '',
-//             grade: '',
+//             course: '',
 //             resume: '',
 //         });
 //     };
@@ -139,10 +139,10 @@
 //                         />
 //                         <input
 //                             type="text"
-//                             name="grade"
+//                             name="course"
 //                             placeholder="Grade"
 //                             className="input-field"
-//                             value={formData.grade}
+//                             value={formData.course}
 //                             onChange={handleChange}
 //                         />
 //                         <input
@@ -185,7 +185,7 @@ let Registration = () => {
         password: '',
         subject: '',
         contactNumber: '',
-        grade: '',
+        course: '',
         resume: null,
     });
 
@@ -207,7 +207,7 @@ let Registration = () => {
             password: '',
             subject: '',
             contactNumber: '',
-            grade: '',
+            course: '',
             resume: null,
         });
     };
@@ -326,10 +326,10 @@ let Registration = () => {
                                     />
                                     <input
                                         type="text"
-                                        name="grade"
-                                        placeholder="Grade"
+                                        name="course"
+                                        placeholder="Course"
                                         className="input-field"
-                                        value={formData.grade}
+                                        value={formData.course}
                                         onChange={handleChange}
                                         required
                                     />
