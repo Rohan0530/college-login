@@ -1,13 +1,18 @@
 import '../style/TeacherAdmin.css'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance, { setterFunction } from '../../axiosInstance';
+
 const TeacherAdmin = () => {
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+
         const fetchStudents = async () => {
             try {
-                const res = await axios.get('http://localhost:4500/api/students/all')
+                setterFunction(setLoading)
+                const res = await axiosInstance.get('students/all')
                 setStudents(res.data)
             } catch (error) {
                 console.error("Error fetching students:", error)
@@ -16,6 +21,7 @@ const TeacherAdmin = () => {
 
         fetchStudents()
     }, [])
+
     return (
         <div className='MainPage'>
             <div className='nav'>
@@ -36,26 +42,35 @@ const TeacherAdmin = () => {
                 </aside>
                 <div className='mainconten'>
                     <h3>All Student Data</h3>
-                    <table border={"2"} className='tabmain'>
-                        <thead>
-                            <tr>
-                                <th>Student id</th>
-                                <th>Student Name</th>
-                                <th>Email</th>
-                                <th>View</th>
-                            </tr>
-                        </thead>
-                        <tbody className='BodyData'>
-                            {students.map((student, index) => (
-                                <tr key={student._id || index}>
-                                    <td>{student._id}</td>
-                                    <td>{student.name}</td>
-                                    <td>{student.email}</td>
-                                    <td><a href={`http://localhost:4500/uploads/${student.resume}`} target="_blank">View</a></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    {
+                        loading ? (<div className="spinner"></div>)
+                            :
+                            <table border={"2"} className='tabmain'>
+                                <thead>
+                                    <tr>
+                                        <th>S.NO</th>
+                                        <th>Student Name</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
+                                        <th>View</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody className='BodyData'>
+                                    {students.map((student, index) => (
+                                        <tr key={student._id || index}>
+                                            <td>{index + 1}</td>
+                                            <td>{student.name}</td>
+                                            <td>{student.email}</td>
+                                            <td>{student.contactNumber}</td>
+                                            <td><a href={`http://localhost:4500/uploads/${student.resume}`} target="_blank">View</a></td>
+                                            <td><a href={`http://localhost:4500/api/staff/download/${student.resume}`} style={{ background: 'none', }} rel="noopener noreferrer"><button>Click here</button></a></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                    }
+
                 </div>
             </div>
         </div>
