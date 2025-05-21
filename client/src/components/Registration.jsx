@@ -231,7 +231,7 @@ let Registration = () => {
                 form.append('subject', formData.subject);
             } else {
                 form.append('contactNumber', formData.contactNumber);
-                form.append('grade', formData.grade);
+                form.append('course', formData.course);
                 form.append('resume', formData.resume);
             }
 
