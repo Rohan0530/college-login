@@ -8,6 +8,7 @@ const TeacherAdmin = () => {
         const fetchStudents = async () => {
             try {
                 const res = await axios.get('http://localhost:4500/api/students/all')
+                console.log("Data",res);
                 setStudents(res.data)
             } catch (error) {
                 console.error("Error fetching students:", error)
