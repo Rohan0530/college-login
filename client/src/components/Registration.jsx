@@ -174,6 +174,7 @@ import React, { useState } from 'react';
 import '../style/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 let Registration = () => {
     let navigate = useNavigate();
@@ -243,11 +244,12 @@ let Registration = () => {
             const sendData = await axios.post(url, form);
 
             console.log(sendData);
-            alert(`Registered as ${accountType}`);
-            navigate('/');
-        } catch (error) {
+            toast.success('Registered successfully!');
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);        } catch (error) {
             console.error(error);
-            alert('Registration failed. Please try again.');
+            toast.error('Registration failed. Please try again.');
         }
     };
 
